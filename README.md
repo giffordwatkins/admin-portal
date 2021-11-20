@@ -1,9 +1,4 @@
-# Invoice Ninja
-
-Client app for [Invoice Ninja](https://github.com/invoiceninja/invoiceninja).
-
-- [Desktop Apps](https://invoiceninja.com/desktop)
-- [Mobile Apps](https://invoiceninja.com/mobile)
+# eFinance
 
 <p align="center">
     <img src="https://github.com/invoiceninja/flutter-mobile/blob/master/samples/screenshots/1.png" alt="Dashboard" width="200"/>
