@@ -21,39 +21,6 @@
 
     `flutter run`
 
-Note: if you don't have an Invoice Ninja backend setup you can test the app with these credentials:
-
-- Email: `demo@invoiceninja.com`
-- Password: `Password0`
-- URL: `demo.invoiceninja.com`
-
-## Steps to remove non-FOSS code
-
-```
-cp android/build.gradle.foss android/build.gradle
-cp lib/utils/oauth.dart.foss lib/utils/oauth.dart
-cp lib/ui/app/upgrade_dialog.dart.foss lib/ui/app/upgrade_dialog.dart
-cp android/app/src/main/AndroidManifest.foss.xml android/app/src/main/AndroidManifest.xml
-cp pubspec.foss.yaml pubspec.yaml 
-rm pubspec.lock
-```
-
-## Application Architecture
-
-The application was created using the [Flutter Redux Starter](https://github.com/hillelcoren/flutter-redux-starter).
-
-The architecture is based off these two projects:
-
-- [Redux Sample](https://github.com/brianegan/flutter_architecture_samples/tree/master/redux) - [Brian Egan](https://twitter.com/brianegan)
-- [inKino](https://github.com/roughike/inKino) - [Iiro Krankka](https://twitter.com/koorankka)
-
-### Blog Posts
-- [Intro to Google Flutter](https://hillel.dev/2018/05/18/flutter-is-darts-killer-app/)
-- [Using Redux to manage state](https://hillel.dev/2018/06/01/building-a-large-flutter-app-with-redux/)
-- [Handling complex forms](https://hillel.dev/2018/06/18/flutter-using-redux-to-manage-complex-forms-with-multiple-tabs-and-relationships/)
-- [Architectural review](https://hillel.dev/2018/08/10/an-architectural-review-of-the-invoice-ninja-flutter-app/)
-- [Additional thoughts](https://hillel.dev/2018/08/24/ongoing-adventures-with-flutter-and-redux/)
-
 ## Code generation
 - Run `flutter packages pub run build_runner build --delete-conflicting-outputs` to regenerate the model files. It will also remove the old generated files so conflicts are avoided..
 
@@ -70,11 +37,3 @@ The architecture is based off these two projects:
     - After go to add a new Android application. For the package name add `com.invoiceninja.flutter`
     - Press "Register App" button.
     - Download "google-services.json" and put it in `android/app` directory.
-
-## Credits
-
-[https://github.com/invoiceninja/invoiceninja#credits](https://github.com/invoiceninja/invoiceninja/tree/v5-develop#credits)
-
-## Contributions
-
-We gladly accept contributions! If you'd like to get involved with development please join our [Slack group](http://slack.invoiceninja.com/).
