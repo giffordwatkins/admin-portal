@@ -1,12 +1,22 @@
+// Dart imports:
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io' as file;
+
+// Flutter imports:
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+// Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:native_pdf_view/native_pdf_view.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share/share.dart';
+
+// Project imports:
 import 'package:invoiceninja_flutter/constants.dart';
-import 'package:flutter/foundation.dart';
 import 'package:invoiceninja_flutter/data/models/dashboard_model.dart';
 import 'package:invoiceninja_flutter/data/models/models.dart';
 import 'package:invoiceninja_flutter/data/web_client.dart';
@@ -20,11 +30,9 @@ import 'package:invoiceninja_flutter/utils/dates.dart';
 import 'package:invoiceninja_flutter/utils/dialogs.dart';
 import 'package:invoiceninja_flutter/utils/localization.dart';
 import 'package:invoiceninja_flutter/utils/platforms.dart';
-import 'package:native_pdf_view/native_pdf_view.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:invoiceninja_flutter/utils/web_stub.dart'
     if (dart.library.html) 'package:invoiceninja_flutter/utils/web.dart';
-import 'package:share/share.dart';
 
 class ClientPdfView extends StatefulWidget {
   const ClientPdfView({
@@ -122,8 +130,8 @@ class _ClientPdfViewState extends State<ClientPdfView> {
       state.credentials.token,
       data: json.encode({
         'client_id': client.id,
-        'start_date': kIsWeb ? '2019-01-01' : startDate,
-        'end_date': kIsWeb ? '2022-01-01' : endDate,
+        'start_date': kIsWeb ? '2021-01-01' : startDate,
+        'end_date': kIsWeb ? '2023-01-01' : endDate,
         'show_payments_table': _showPayments,
         'show_aging_table': _showAging,
       }),
