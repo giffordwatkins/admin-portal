@@ -57,6 +57,7 @@ PrefState prefReducer(
           historySidebarReducer(state.historySidebarMode, action)
       ..hideDesktopWarning =
           hideDesktopWarningReducer(state.hideDesktopWarning, action)
+      ..textScaleFactor = textScaleFactorReducer(state.textScaleFactor, action)
       ..isMenuVisible = menuVisibleReducer(state.isMenuVisible, action)
       ..isHistoryVisible = historyVisibleReducer(state.isHistoryVisible, action)
       ..enableDarkMode = darkModeReducer(state.enableDarkMode, action)
@@ -72,10 +73,10 @@ PrefState prefReducer(
           requireAuthenticationReducer(state.requireAuthentication, action)
       ..colorTheme = colorThemeReducer(state.colorTheme, action)
       ..customColors.replace(customColorsReducer(state.customColors, action))
-      ..useSidebarEditor.replace(
-        sidebarEditorReducer(state.useSidebarEditor, action),
-      )
-      ..sortFields.replace(sortFieldsReducer(state.sortFields, action)),
+      ..useSidebarEditor
+          .replace(sidebarEditorReducer(state.useSidebarEditor, action))
+      ..sortFields.replace(sortFieldsReducer(state.sortFields, action))
+      ..showPdfPreview = showPdfPreviewReducer(state.showPdfPreview, action),
   );
 }
 
@@ -178,6 +179,12 @@ Reducer<bool> menuVisibleReducer = combineReducers([
       default:
         return value;
     }
+  }),
+]);
+
+Reducer<double> textScaleFactorReducer = combineReducers([
+  TypedReducer<double, UpdateUserPreferences>((value, action) {
+    return action.textScaleFactor ?? value;
   }),
 ]);
 
@@ -312,6 +319,12 @@ Reducer<bool> requireAuthenticationReducer = combineReducers([
 Reducer<String> colorThemeReducer = combineReducers([
   TypedReducer<String, UpdateUserPreferences>((currentColorTheme, action) {
     return action.colorTheme ?? currentColorTheme;
+  }),
+]);
+
+Reducer<bool> showPdfPreviewReducer = combineReducers([
+  TypedReducer<bool, UpdateUserPreferences>((value, action) {
+    return action.showPdfPreview ?? value;
   }),
 ]);
 

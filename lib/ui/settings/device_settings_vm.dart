@@ -54,7 +54,9 @@ class DeviceSettingsVM {
     @required this.onCustomColorsChanged,
     @required this.onPersistDataChanged,
     @required this.onPersistUiChanged,
+    @required this.onShowPdfChanged,
     @required this.onTapSelectedChanged,
+    @required this.onTextScaleFactorChanged,
   });
 
   static DeviceSettingsVM fromStore(Store<AppState> store) {
@@ -97,6 +99,12 @@ class DeviceSettingsVM {
       },
       onTapSelectedChanged: (context, value) async {
         store.dispatch(UpdateUserPreferences(tapSelectedToEdit: value));
+      },
+      onShowPdfChanged: (context, value) {
+        store.dispatch(UpdateUserPreferences(showPdfPreview: value));
+      },
+      onTextScaleFactorChanged: (context, value) {
+        store.dispatch(UpdateUserPreferences(textScaleFactor: value));
       },
       onColorThemeChanged: (context, value) async {
         if (store.state.prefState.colorTheme != value) {
@@ -182,5 +190,7 @@ class DeviceSettingsVM {
   final Function(BuildContext, bool) onRequireAuthenticationChanged;
   final Function(BuildContext, bool) onPersistDataChanged;
   final Function(BuildContext, bool) onPersistUiChanged;
+  final Function(BuildContext, bool) onShowPdfChanged;
+  final Function(BuildContext, double) onTextScaleFactorChanged;
   final Future<bool> authenticationSupported;
 }

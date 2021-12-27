@@ -134,7 +134,7 @@ class _PaymentEditState extends State<PaymentEdit> {
     if (currency != null) {
       final client = state.clientState.get(payment.clientId);
       exchangeRate = getExchangeRate(state.staticState.currencyMap,
-          fromCurrencyId: currency.id, toCurrencyId: client.currencyId);
+          fromCurrencyId: client.currencyId, toCurrencyId: currency.id);
     }
 
     _exchangeRateController.removeListener(_onChanged);
@@ -201,7 +201,7 @@ class _PaymentEditState extends State<PaymentEdit> {
             children: <Widget>[
               if (payment.isNew) ...[
                 EntityDropdown(
-                  autofocus: true,
+                  autofocus: (payment.clientId ?? '').isEmpty,
                   entityType: EntityType.client,
                   labelText: AppLocalization.of(context).client,
                   entityId: payment.clientId,
@@ -227,8 +227,8 @@ class _PaymentEditState extends State<PaymentEdit> {
                   DecoratedFormField(
                     controller: _amountController,
                     autocorrect: false,
-                    keyboardType:
-                        TextInputType.numberWithOptions(decimal: true),
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: true, signed: true),
                     label: paymentTotal == 0
                         ? localization.amount
                         : amountPlaceholder,
@@ -241,6 +241,7 @@ class _PaymentEditState extends State<PaymentEdit> {
                   onSavePressed: viewModel.onSavePressed,
                   validator: (value) =>
                       value.isEmpty ? localization.pleaseEnterAValue : null,
+                  keyboardType: TextInputType.text,
                 ),
               if (payment.isNew || payment.isApplying == true)
                 for (var index = 0; index < invoicePaymentables.length; index++)
@@ -297,6 +298,7 @@ class _PaymentEditState extends State<PaymentEdit> {
                   controller: _transactionReferenceController,
                   label: localization.transactionReference,
                   onSavePressed: viewModel.onSavePressed,
+                  keyboardType: TextInputType.text,
                 ),
               CustomField(
                 controller: _custom1Controller,
@@ -382,6 +384,7 @@ class _PaymentEditState extends State<PaymentEdit> {
                   controller: _exchangeRateController,
                   label: localization.exchangeRate,
                   onSavePressed: viewModel.onSavePressed,
+                  keyboardType: TextInputType.numberWithOptions(decimal: true),
                 ),
                 Focus(
                   onFocusChange: (hasFocus) {
@@ -421,6 +424,8 @@ class _PaymentEditState extends State<PaymentEdit> {
                       _convertedAmount = parseDouble(value);
                     },
                     onSavePressed: viewModel.onSavePressed,
+                    keyboardType: TextInputType.numberWithOptions(
+                        decimal: true, signed: false),
                   ),
                 ),
               ],
@@ -695,7 +700,8 @@ class _PaymentableEditorState extends State<PaymentableEditor> {
               showClear: false,
               controller: _amountController,
               autocorrect: false,
-              keyboardType: TextInputType.numberWithOptions(decimal: true),
+              keyboardType:
+                  TextInputType.numberWithOptions(decimal: true, signed: true),
               label: payment.isForInvoice == true
                   ? localization.amount
                   : localization.applied,

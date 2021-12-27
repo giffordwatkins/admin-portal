@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 // Package imports:
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:flutter_styled_toast/flutter_styled_toast.dart';
+import 'package:invoiceninja_flutter/ui/app/app_builder.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -174,6 +175,30 @@ class _DeviceSettingsState extends State<DeviceSettings>
               ),
               FormCard(
                 children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: AppDropdownButton<double>(
+                        labelText: localization.fontSize,
+                        value: prefState.textScaleFactor,
+                        onChanged: (dynamic value) {
+                          viewModel.onTextScaleFactorChanged(context, value);
+                          AppBuilder.of(context).rebuild();
+                        },
+                        items: [
+                          DropdownMenuItem(
+                            child: Text(localization.normal),
+                            value: PrefState.TEXT_SCALING_NORMAL,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(localization.large),
+                            value: PrefState.TEXT_SCALING_LARGE,
+                          ),
+                          DropdownMenuItem(
+                            child: Text(localization.extraLarge),
+                            value: PrefState.TEXT_SCALING_EXTRA_LARGE,
+                          ),
+                        ]),
+                  ),
                   FutureBuilder(
                     future: viewModel.authenticationSupported,
                     builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -193,6 +218,16 @@ class _DeviceSettingsState extends State<DeviceSettings>
                       }
                     },
                   ),
+                  if (isDesktop(context))
+                    SwitchListTile(
+                      title: Text(localization.showPdfPreview),
+                      subtitle: Text(localization.showPdfPreviewHelp),
+                      value: prefState.showPdfPreview,
+                      onChanged: (value) =>
+                          viewModel.onShowPdfChanged(context, value),
+                      activeColor: Theme.of(context).colorScheme.secondary,
+                      secondary: Icon(MdiIcons.filePdfBox),
+                    ),
                   SwitchListTile(
                     title: Text(localization.persistUi),
                     subtitle: Text(localization.persistUiHelp),

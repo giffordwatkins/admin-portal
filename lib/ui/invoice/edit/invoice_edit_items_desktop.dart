@@ -567,6 +567,7 @@ class _InvoiceEditItemsDesktopState extends State<InvoiceEditItemsDesktop> {
                               showClear: false,
                               autofocus: false,
                               controller: textEditingController,
+                              keyboardType: TextInputType.text,
                               focusNode: focusNode,
                               onFieldSubmitted: (String value) {
                                 onFieldSubmitted();
@@ -792,9 +793,11 @@ class _InvoiceEditItemsDesktopState extends State<InvoiceEditItemsDesktop> {
                               formatNumberType: FormatNumberType.inputMoney,
                               clientId: invoice.clientId),
                           onChanged: (value) => _onChanged(
-                              lineItems[index]
-                                  .rebuild((b) => b..cost = parseDouble(value)),
-                              index),
+                            lineItems[index]
+                                .rebuild((b) => b..cost = parseDouble(value)),
+                            index,
+                            debounce: false,
+                          ),
                           keyboardType: TextInputType.numberWithOptions(
                               decimal: true, signed: true),
                           onSavePressed: widget.entityViewModel.onSavePressed,
@@ -816,9 +819,11 @@ class _InvoiceEditItemsDesktopState extends State<InvoiceEditItemsDesktop> {
                                 formatNumberType: FormatNumberType.inputAmount,
                                 clientId: invoice.clientId),
                             onChanged: (value) => _onChanged(
-                                lineItems[index].rebuild(
-                                    (b) => b..quantity = parseDouble(value)),
-                                index),
+                              lineItems[index].rebuild(
+                                  (b) => b..quantity = parseDouble(value)),
+                              index,
+                              debounce: false,
+                            ),
                             keyboardType: TextInputType.numberWithOptions(
                                 decimal: true, signed: true),
                             onSavePressed: widget.entityViewModel.onSavePressed,
